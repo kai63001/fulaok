@@ -5,6 +5,7 @@
       "@/components/*": ["components/*"],
       "@/middleware/*": ["middleware/*"],
       "@/styles/*": ["styles/*"],
+      "@/lang/*": ["lang/*"],
       "@/lib/*": ["lib/*"]
     },
     "target": "es5",
