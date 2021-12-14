@@ -38,7 +38,7 @@ const Navbar = (props: any) => {
           </li>
           {linker.map((data, i) => {
             return (
-              <li className="ml-4 mt-1" key={i}>
+              <li className="ml-4 mt-1 sm:block hidden" key={i}>
                 <Link href={data.link}>
                   <a>{Navbar_lang[data.name][locale.toString()]}</a>
                 </Link>
@@ -52,7 +52,7 @@ const Navbar = (props: any) => {
               <a className="border-red-600 border-2 text-red-600 px-3 py-1 rounded-sm mr-2">{Navbar_lang["add_post"][locale.toString()]}</a>
             </Link>
           </li>
-          <li>
+          <li className="sm:block hidden">
             <Link href="/sign-in">
               <a className="bg-red-600 border-red-600 border-2 text-white px-3 py-1 rounded-sm">{Navbar_lang["login"][locale.toString()]}</a>
             </Link>
