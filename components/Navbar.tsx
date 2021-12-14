@@ -53,7 +53,7 @@ const Navbar = (props: any) => {
           <li>
             <Link href="/add-new-post">
               <a>
-                <Button>{Navbar_lang["add_post"][locale.toString()]}</Button>
+                <Button border>{Navbar_lang["add_post"][locale.toString()]}</Button>
               </a>
             </Link>
           </li>

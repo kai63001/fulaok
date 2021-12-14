@@ -9,7 +9,7 @@ const Home: NextPage = () => {
           <img
             src="https://petmaya.com/wp-content/uploads/2021/12/architecture.jpg"
             alt=""
-            className="rounded-sm"
+            className="rounded-md"
           />
           <p className="text-xl">20 สถาปัตยกรรมจากประเทศต่าง ๆ ที่ผู้คนต่างปรบมือให้ในความสุดยอด</p>
         </div>
