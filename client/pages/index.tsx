@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 const Home: NextPage = () => {
   return (
     <Layout>
-      <div className="bg-red-600">asdas</div>
+      adasdsa
     </Layout>
   );
 };

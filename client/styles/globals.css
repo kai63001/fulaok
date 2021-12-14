@@ -29,3 +29,7 @@ footer {
 main {
   min-height: 86% !important;
 }
+
+.logo {
+  font-weight: 700 !important;
+}
