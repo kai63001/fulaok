@@ -8,23 +8,23 @@ const Navbar = (props: any) => {
   const linker = [
     {
       name: "lifestyle",
-      link: "lifestyle",
+      link: "/lifestyle",
     },
     {
       name: "creativity",
-      link: "creativity",
+      link: "/creativity",
     },
     {
       name: "entertainment",
-      link: "entertainment",
+      link: "/entertainment",
     },
     {
       name: "mystery",
-      link: "mystery",
+      link: "/mystery",
     },
     {
       name: "more",
-      link: "more",
+      link: "/more",
     },
   ];
   return (
@@ -32,24 +32,29 @@ const Navbar = (props: any) => {
       <div className="max-w-screen-lg mx-auto mt-3 px-2 xs:px-0 flex justify-between">
         <ul className="flex">
           <li>
-            <Link href="">
+            <Link href="/">
               <a className="text-2xl logo">MOONSBLOG</a>
             </Link>
           </li>
           {linker.map((data, i) => {
             return (
               <li className="ml-4 mt-1" key={i}>
-                <Link href="">
+                <Link href={data.link}>
                   <a>{Navbar_lang[data.name][locale.toString()]}</a>
                 </Link>
               </li>
             );
           })}
         </ul>
-        <ul className="mt-1">
+        <ul className="mt-1 flex">
+        <li>
+            <Link href="/add-new-post">
+              <a className="border-blue-600 border-2 text-blue-600 px-3 py-1 rounded-sm mr-2">{Navbar_lang["add_post"][locale.toString()]}</a>
+            </Link>
+          </li>
           <li>
-            <Link href="">
-              <a>MOONSBLOG</a>
+            <Link href="/sign-in">
+              <a className="bg-blue-600 border-blue-600 border-2 text-white px-3 py-1 rounded-sm">{Navbar_lang["login"][locale.toString()]}</a>
             </Link>
           </li>
         </ul>
