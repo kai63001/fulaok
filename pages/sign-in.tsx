@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import { sign_in_lang } from "@/lang/sign-in.lang";
 import { useRouter } from "next/router";
-import Input from "@/components/Input"
+import Input from "@/components/custom/Input"
 
 const SignIn = () => {
   const { locale = "en" } = useRouter();
