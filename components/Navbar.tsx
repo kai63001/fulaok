@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Navbar_lang } from "@/lang/Navbar.lang";
+import { Navbar_lang } from "@/lang/components/Navbar.lang";
 import Link from "next/link";
 
 const Navbar = (props: any) => {
