@@ -31,7 +31,7 @@ const Navbar = (props: any) => {
     <nav className="">
       <div className="max-w-screen-lg mx-auto mt-3 px-2 xs:px-0 flex justify-between">
         <ul className="flex">
-          <li>
+          <li className="mr-2">
             <Link href="/">
               <a className="text-2xl logo">MOONSBLOG</a>
             </Link>
