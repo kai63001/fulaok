@@ -49,12 +49,12 @@ const Navbar = (props: any) => {
         <ul className="mt-1 flex">
         <li>
             <Link href="/add-new-post">
-              <a className="border-blue-600 border-2 text-blue-600 px-3 py-1 rounded-sm mr-2">{Navbar_lang["add_post"][locale.toString()]}</a>
+              <a className="border-red-600 border-2 text-red-600 px-3 py-1 rounded-sm mr-2">{Navbar_lang["add_post"][locale.toString()]}</a>
             </Link>
           </li>
           <li>
             <Link href="/sign-in">
-              <a className="bg-blue-600 border-blue-600 border-2 text-white px-3 py-1 rounded-sm">{Navbar_lang["login"][locale.toString()]}</a>
+              <a className="bg-red-600 border-red-600 border-2 text-white px-3 py-1 rounded-sm">{Navbar_lang["login"][locale.toString()]}</a>
             </Link>
           </li>
         </ul>
