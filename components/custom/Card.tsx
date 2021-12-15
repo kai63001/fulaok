@@ -7,7 +7,7 @@ const Card = (props: any) => {
       >
         <img
           className="rounded-tr-md rounded-tl-md"
-          src="https://petmaya.com/wp-content/uploads/2021/12/architecture.jpg"
+          src={props.image}
           alt=""
         />
         <div className="p-3"><p className="text-lg">{props.children}</p></div>
