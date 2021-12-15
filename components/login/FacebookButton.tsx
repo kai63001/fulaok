@@ -1,6 +1,31 @@
+import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
+import App from "@/lib/firebase";
+
 const FacebookButton = () => {
+  const app = App;
+  const provider = new FacebookAuthProvider();
+  provider.setCustomParameters({
+    display: "popup",
+  });
+  const auth = getAuth();
+  const login = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential?.accessToken;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.email;
+        const credential = FacebookAuthProvider.credentialFromError(error);
+
+      });
+  };
   return (
-    <button className="relative w-full">
+    <button onClick={login} className="relative w-full">
       <div className="absolute inset-x-0 bottom-0 bg-blue-600 border border-blue-600 rounded-lg h-3" />
       <div
         className={`relative bottom-1  tracking-wider px-3 py-2 color-white border-2 border-blue-500 rounded-md transform active:translate-y-1 transition duration-200 ease-in-out
