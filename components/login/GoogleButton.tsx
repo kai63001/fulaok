@@ -1,6 +1,29 @@
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import App from "@/lib/firebase";
+import router from "next/router";
+
 const GoogleButton = () => {
+  const app = App;
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+
+  const login = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential?.accessToken;
+        const user = result.user;
+        router.push("/", undefined, { shallow: true });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+      });
+  };
   return (
-    <button className="relative mt-3 w-full">
+    <button onClick={login} className="relative mt-3 w-full">
       <div className="absolute inset-x-0 bottom-0 bg-red-600 border border-red-600 rounded-lg h-3" />
       <div
         className={`relative bottom-1  tracking-wider px-3 py-2 color-white border-2 border-red-500 rounded-md transform active:translate-y-1 transition duration-200 ease-in-out
