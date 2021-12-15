@@ -73,28 +73,44 @@ const Navbar = (props: any) => {
             );
           })}
         </ul>
-        <ul className="mt-1 flex">
-          <li>
-            <Link href="/add-new-post">
-              <a>
-                <Button border>{Navbar_lang["add_post"][locale.toString()]}</Button>
-              </a>
-            </Link>
-          </li>
-          <li className="sm:block hidden">
-            <Link href="/sign-in">
-              <a>
-                <Button>{Navbar_lang["login"][locale.toString()]}</Button>
-              </a>
-            </Link>
-          </li>
-        </ul>
+        {props.login.login ? (
+          <ul className="mt-1 flex">
+            <li>
+              <Link href="/add-new-post">
+                <a>
+                  <Button border>
+                   asdasd
+                  </Button>
+                </a>
+              </Link>
+            </li>
+          </ul>
+        ) : (
+          <ul className="mt-1 flex">
+            <li>
+              <Link href="/add-new-post">
+                <a>
+                  <Button border>
+                    {Navbar_lang["add_post"][locale.toString()]}
+                  </Button>
+                </a>
+              </Link>
+            </li>
+            <li className="sm:block hidden">
+              <Link href="/sign-in">
+                <a>
+                  <Button>{Navbar_lang["login"][locale.toString()]}</Button>
+                </a>
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
     </nav>
   );
 };
 
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state: any) => ({
   login: state.login.value,
 });
 
