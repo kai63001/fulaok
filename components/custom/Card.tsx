@@ -1,17 +1,13 @@
 const Card = (props: any) => {
   return (
-    <div className="relative cursor-pointer">
-      <div className="absolute inset-x-0 bottom-0 bg-gray-300 border border-gray-300 rounded-lg h-3" />
+    <div className="bg-gray-300 rounded-md p-113 cursor-pointer">
       <div
-        className={`relative h-full bottom-1 tracking-wider color-white border-2 border-gray-200 rounded-md transform hover:translate-y-1 transition duration-200 ease-in-out bg-white hover:text-purple-900`}
+        className={`relative h-full tracking-wider color-white  rounded-md transform ease-in-out bg-white hover:text-purple-900`}
       >
-        <img
-          className="rounded-tr-md rounded-tl-md"
-          src={props.image}
-          alt=""
-        />
-        <div className="p-3"><p className="text-lg">{props.children}</p></div>
-
+        <img className="rounded-tr-md rounded-tl-md" src={props.image} alt="" />
+        <div className="p-3">
+          <p className="text-lg">{props.children}</p>
+        </div>
       </div>
     </div>
   );

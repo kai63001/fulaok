@@ -37,3 +37,7 @@ main {
 .text-mute {
   color: rgb(122, 110, 170);
 }
+
+.p-113 {
+  padding: 1px 1px 3px !important;
+}

@@ -17,6 +17,7 @@ const SignIn = () => {
             <p>ยินดีต้อนรับเข้าสู่โลกแห่งสาระและความรู้</p>
             <form className="mt-2">
               <Input />
+              <Input />
             </form>
           </div>
         </div>
