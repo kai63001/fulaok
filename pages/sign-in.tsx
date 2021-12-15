@@ -10,15 +10,17 @@ const SignIn = () => {
     <Layout>
       <div className="flex h-screen w-full">
         <div className="m-auto w-5/6 sm:w-3/6">
-          <div className="shadow-md rounded-sm p-10">
+          <div className="bg-gray-300 rounded-md p-113">
+          <div className="bg-white rounded-md p-10">
             <h1 className="text-3xl font-medium">
               {sign_in_lang["signin"][locale]}
             </h1>
-            <p>ยินดีต้อนรับเข้าสู่โลกแห่งสาระและความรู้</p>
+            <p>{sign_in_lang["signinDetail"][locale]}</p>
             <form className="mt-2">
-              <Input />
-              <Input />
+              <Input label={sign_in_lang["email"][locale]} name="email" placeholder="luna@moonsblog.com" />
+              <Input label={sign_in_lang["password"][locale]} name="password" type="password" placeholder="password" />
             </form>
+          </div>
           </div>
         </div>
       </div>
