@@ -33,13 +33,13 @@ const SignIn = () => {
                   placeholder="password"
                 />
                 <br />
-                <div className="flex justify-between">
-                  <div className="">
+                <div className="sm:flex justify-between">
+                  <div className="order-2 sm:order-1">
                     <Link href="/forgot-password">
                       <a className="text-purple-800">Forgot your password?</a>
                     </Link>
                   </div>
-                  <Button border>{sign_in_lang["signin"][locale]}</Button>
+                  <Button full border>{sign_in_lang["signin"][locale]}</Button>
                 </div>
                 <div className="text-center mt-2">
                   <Link href="/sign-up">
