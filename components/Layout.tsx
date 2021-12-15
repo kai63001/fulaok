@@ -13,7 +13,7 @@ const Layout = (props: any) => {
       <header>
         <Navbar />
       </header>
-      <main className="max-w-screen-lg mx-auto mt-3 px-2 xs:px-0">
+      <main className="max-w-screen-xl mx-auto mt-3 px-2 xs:px-0">
         {props.children}
       </main>
       {/* <Footer /> */}

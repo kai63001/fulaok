@@ -1,8 +1,8 @@
 const Card = (props: any) => {
   return (
-    <div className="bg-gray-300 rounded-md p-113 cursor-pointer">
+    <div className="bg-gray-300 rounded-md p-113 cursor-pointer active:translate-y-1 transition duration-200">
       <div
-        className={`relative h-full tracking-wider color-white  rounded-md transform ease-in-out bg-white hover:text-purple-900`}
+        className={`relative h-full tracking-wider color-white rounded-md transform ease-in-out bg-white hover:text-purple-900`}
       >
         <img className="rounded-tr-md rounded-tl-md" src={props.image} alt="" />
         <div className="p-3">
