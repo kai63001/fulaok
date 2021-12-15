@@ -1,11 +1,35 @@
 import { useRouter } from "next/router";
 import { Navbar_lang } from "@/lang/components/Navbar.lang";
 import Link from "next/link";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import Firebase from "@/lib/firebase";
 import Button from "@/components/custom/Button";
+import { addDataUser } from "@/redux/actions/loginAction";
+import { connect } from "react-redux";
 
 const Navbar = (props: any) => {
   const { locale = "en" } = useRouter();
 
+  const App = Firebase;
+  const auth = getAuth();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log(user);
+        props.addDataUser({
+          login: true,
+          ...user,
+        });
+      } else {
+        console.log("no user");
+        props.addDataUser({
+          login: false,
+        });
+      }
+    });
+  }, []);
   const linker = [
     {
       name: "lifestyle",
@@ -70,4 +94,12 @@ const Navbar = (props: any) => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state:any) => ({
+  login: state.login.value,
+});
+
+const mapDispatchToProps = {
+  addDataUser: addDataUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

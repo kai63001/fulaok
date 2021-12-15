@@ -6,7 +6,8 @@
       "@/middleware/*": ["middleware/*"],
       "@/styles/*": ["styles/*"],
       "@/lang/*": ["lang/*"],
-      "@/lib/*": ["lib/*"]
+      "@/lib/*": ["lib/*"],
+      "@/redux/*": ["redux/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
