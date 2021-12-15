@@ -7,4 +7,11 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  variants: {
+    extend: {
+      // ...
+
+      ringWidth: ["focus", "active"],
+    },
+  },
 };

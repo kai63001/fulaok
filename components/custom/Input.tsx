@@ -1,11 +1,11 @@
 interface InputProps {
-  name: string,
-  type?: string | "text",
-  placeholder?: string,
-  label: string,
+  name: string;
+  type?: string | "text";
+  placeholder?: string;
+  label: string;
 }
 
-const Input = (props:InputProps) => {
+const Input = (props: InputProps) => {
   return (
     <div>
       <label htmlFor={props.name}>{props.label}</label>
@@ -13,7 +13,7 @@ const Input = (props:InputProps) => {
         type={props.type}
         name={props.name}
         id={props.name}
-        className={`rounded-sm focus:ring-1 focus:outline-none w-full text-black placeholder-gray-500 border border-gray-200 focus:border-purple-500 focus:ring-purple-500 py-1 pl-3`}
+        className={`rounded-sm w-full text-input placeholder-gray-500 border border-gray-200 focus:outline-purple-500 py-1 pl-3 bg-input`}
         placeholder={props.placeholder}
       />
     </div>

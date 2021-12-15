@@ -8,8 +8,8 @@ const SignIn = () => {
 
   return (
     <Layout>
-      <div className="flex h-screen w-full">
-        <div className="m-auto w-5/6 sm:w-3/6">
+      <div className="flex h-screen -mt-10 w-full">
+        <div className="m-auto w-11/12 sm:w-3/6">
           <div className="bg-gray-300 rounded-md p-113">
           <div className="bg-white rounded-md p-10">
             <h1 className="text-3xl font-medium">

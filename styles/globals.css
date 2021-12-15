@@ -41,3 +41,12 @@ main {
 .p-113 {
   padding: 1px 1px 3px !important;
 }
+
+.bg-input {
+  background-color: rgb(238, 234, 244) !important;
+  box-shadow:rgb(74 74 104 / 10%) 0px 2px 2px -1px inset !important;
+}
+
+.text-input {
+  color:rgb(40, 13, 95) !important;
+}
