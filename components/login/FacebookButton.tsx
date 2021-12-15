@@ -1,5 +1,6 @@
 import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
 import App from "@/lib/firebase";
+import router from "next/router";
 
 const FacebookButton = () => {
   const app = App;
@@ -15,6 +16,7 @@ const FacebookButton = () => {
 
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential?.accessToken;
+        router.push("/", undefined, { shallow: true });
       })
       .catch((error) => {
         const errorCode = error.code;
