@@ -1,5 +1,6 @@
+import Link from "next/link";
+
 const profileNavbar = (props: any) => {
-  console.log(props);
   return (
     <ul className="flex -top-1">
       <li className="group">
@@ -7,7 +8,7 @@ const profileNavbar = (props: any) => {
           <div className="bg-purple-600 relative left-6 p-1px rounded-full z-10">
             <img
               src={props.data.photoURL}
-              className="rounded-full"
+              className="rounded-full bg-white"
               width="35px"
               alt=""
             />
@@ -35,9 +36,11 @@ const profileNavbar = (props: any) => {
             </li>
             <div className="border-1px "></div>
             <li className="py-1">
-              <a className="block text-mute hover:bg-gray-100 pl-5 py-2 cursor-pointer">
-                Logout
-              </a>
+              <Link href="/logout">
+                <a className="block text-mute hover:bg-gray-100 pl-5 py-2 cursor-pointer">
+                  Logout
+                </a>
+              </Link>
             </li>
           </ul>
         </div>

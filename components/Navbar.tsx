@@ -18,7 +18,6 @@ const Navbar = (props: any) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
-        console.log(user);
         props.addDataUser({
           login: true,
           ...user,
