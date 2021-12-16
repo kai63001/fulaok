@@ -46,7 +46,7 @@ const SignIn = () => {
                 <div className="text-center mt-2">
                   <Link href="/sign-up">
                     <a className="text-purple-800">
-                      <span className="text-mute">{encodeURI("Don't have an account?")}</span>
+                      <span className="text-mute">Dont have an account?</span>
                       Sign Up
                     </a>
                   </Link>

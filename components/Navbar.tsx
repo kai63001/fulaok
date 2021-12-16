@@ -7,28 +7,28 @@ import { Firebase } from "@/lib/firebase";
 import Button from "@/components/custom/Button";
 import { addDataUser } from "@/redux/actions/loginAction";
 import { connect } from "react-redux";
-import User from "@/components/user/profileNavbar";
+const User = dynamic(
+  //@ts-ignore
+  () => import("@/components/user/profileNavbar"),
+  { ssr: false }
+);
+// import User from "@/components/user/profileNavbar";
+import { useCookies } from "react-cookie";
+import dynamic from "next/dynamic";
 
 const Navbar = (props: any) => {
   const { locale = "en" } = useRouter();
-
+  const [cookies, setCookie] = useCookies();
   const App = Firebase;
   const auth = getAuth();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        props.addDataUser({
-          login: true,
-          ...user,
-        });
-      } else {
-        console.log("no user");
-        props.addDataUser({
-          login: false,
-        });
+        // setCookie({})
+        setCookie("user", JSON.stringify(user));
       }
     });
-  }, [auth,props]);
+  }, [auth, props]);
   const linker = [
     {
       name: "lifestyle",
@@ -72,8 +72,8 @@ const Navbar = (props: any) => {
             );
           })}
         </ul>
-        {props.login.login ? (
-          <User locale={locale} data={props.login}/>
+        {cookies.user ? (
+          <User locale={locale} data={cookies.user} />
         ) : (
           <ul className="mt-1 flex">
             <li>
@@ -99,12 +99,4 @@ const Navbar = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  login: state.login.value,
-});
-
-const mapDispatchToProps = {
-  addDataUser: addDataUser,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default Navbar;

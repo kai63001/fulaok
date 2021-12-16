@@ -3,7 +3,6 @@ import { Navbar_lang } from "@/lang/components/Navbar.lang";
 import Image from "next/image"
 
 const profileNavbar = (props: any) => {
-
   return (
     <ul className="flex -top-1">
       <li className="group">
@@ -15,11 +14,13 @@ const profileNavbar = (props: any) => {
               width="35px"
               height="35px"
               alt=""
+              objectFit="cover"
+              layout="intrinsic"
             />
           </div>
           <div className="bg-gray-300 relative p-113 rounded-full h-full top-0.5">
             <div className="bg-white pl-8 rounded-full text-mute pr-2 py-1 flex text-main font-medium">
-              {props.data.displayName.split(" ")[0]}{" "}
+              {props.data.displayName.split(" ")[0]}
               <svg
                 viewBox="0 0 24 24"
                 color="text"

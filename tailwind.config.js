@@ -8,10 +8,6 @@ module.exports = {
   },
   plugins: [],
   variants: {
-    extend: {
-      // ...
-
-      ringWidth: ["focus", "active"],
-    },
+    textColor: ['responsive', 'hover', 'focus', 'group-hover'],
   },
 };

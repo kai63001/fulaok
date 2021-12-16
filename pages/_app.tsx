@@ -1,9 +1,11 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import {wrapper} from '@/redux/store'
+// import {wrapper} from '@/redux/store'
+import { CookiesProvider } from 'react-cookie';
+
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return <CookiesProvider><Component {...pageProps} /></CookiesProvider>
 }
 
-export default  wrapper.withRedux(MyApp);
+export default  (MyApp);

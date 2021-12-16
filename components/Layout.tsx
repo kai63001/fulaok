@@ -1,6 +1,11 @@
-import Navbar from "./Navbar"
+// import Navbar from "./Navbar"
 import Header from "./Header"
-
+import dynamic from "next/dynamic";
+const Navbar = dynamic(
+  //@ts-ignore
+  () => import("@/components/Navbar"),
+  { ssr: false }
+);
 const Layout = (props: any) => {
   return (
     <>
