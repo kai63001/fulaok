@@ -7,6 +7,7 @@ import Firebase from "@/lib/firebase";
 import Button from "@/components/custom/Button";
 import { addDataUser } from "@/redux/actions/loginAction";
 import { connect } from "react-redux";
+import User from "@/components/user/profileNavbar";
 
 const Navbar = (props: any) => {
   const { locale = "en" } = useRouter();
@@ -53,7 +54,7 @@ const Navbar = (props: any) => {
     },
   ];
   return (
-    <nav className="border-b-2 pb-2">
+    <nav className="border-1px pb-2">
       <div className=" mt-2 px-4 xs:px-0 flex justify-between">
         <ul className="flex">
           <li className="mr-2 mt-1">
@@ -74,17 +75,7 @@ const Navbar = (props: any) => {
           })}
         </ul>
         {props.login.login ? (
-          <ul className="mt-1 flex">
-            <li>
-              <Link href="/add-new-post">
-                <a>
-                  <Button border>
-                   asdasd
-                  </Button>
-                </a>
-              </Link>
-            </li>
-          </ul>
+          <User data={props.login}/>
         ) : (
           <ul className="mt-1 flex">
             <li>
