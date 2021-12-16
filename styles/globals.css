@@ -80,3 +80,9 @@ hr:after {
 .border-1px {
   border-bottom: 1px solid rgb(231, 227, 235);
 }
+
+.dropdown {
+  position: fixed;
+  inset: 0px auto auto 0px;
+  transform: translate(1205px, 55px);
+}
