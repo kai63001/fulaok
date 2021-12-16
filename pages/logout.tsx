@@ -16,7 +16,7 @@ const Logout = () => {
       .catch((error) => {
         // An error happened.
       });
-  }, []);
+  }, [auth,router]);
   return <div></div>;
 };
 

@@ -1,9 +1,9 @@
 import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
-import App from "@/lib/firebase";
+import {Firebase} from "@/lib/firebase";
 import router from "next/router";
 
 const FacebookButton = () => {
-  const app = App;
+  const app = Firebase;
   const provider = new FacebookAuthProvider();
   provider.setCustomParameters({
     display: "popup",

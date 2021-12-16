@@ -28,7 +28,7 @@ const Navbar = (props: any) => {
         });
       }
     });
-  }, []);
+  }, [auth,props]);
   const linker = [
     {
       name: "lifestyle",
@@ -73,7 +73,7 @@ const Navbar = (props: any) => {
           })}
         </ul>
         {props.login.login ? (
-          <User data={props.login}/>
+          <User locale={locale} data={props.login}/>
         ) : (
           <ul className="mt-1 flex">
             <li>

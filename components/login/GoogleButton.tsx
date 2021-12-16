@@ -1,9 +1,9 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import App from "@/lib/firebase";
+import { Firebase } from "@/lib/firebase";
 import router from "next/router";
 
 const GoogleButton = () => {
-  const app = App;
+  const app = Firebase;
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
 

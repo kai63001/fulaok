@@ -39,20 +39,22 @@ const SignIn = () => {
                       <a className="text-purple-800">Forgot your password?</a>
                     </Link>
                   </div>
-                  <Button full border>{sign_in_lang["signin"][locale]}</Button>
+                  <Button full border>
+                    {sign_in_lang["signin"][locale]}
+                  </Button>
                 </div>
                 <div className="text-center mt-2">
                   <Link href="/sign-up">
                     <a className="text-purple-800">
-                      <span className="text-mute">Don't have an account?</span>{" "}
+                      <span className="text-mute">{encodeURI("Don't have an account?")}</span>
                       Sign Up
                     </a>
                   </Link>
                 </div>
               </form>
               <hr className="mt-5 mb-4 border-purple-700" />
-              <FacebookButton/>
-              <GoogleButton/>
+              <FacebookButton />
+              <GoogleButton />
             </div>
           </div>
         </div>

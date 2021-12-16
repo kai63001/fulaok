@@ -1,10 +1,8 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { Navbar_lang } from "@/lang/components/Navbar.lang";
 import Image from "next/image"
 
 const profileNavbar = (props: any) => {
-  const { locale = "en" } = useRouter();
 
   return (
     <ul className="flex -top-1">
@@ -38,7 +36,7 @@ const profileNavbar = (props: any) => {
             <li className="py-1">
               <Link href="/add-new-post">
                 <a className="block text-mute hover:bg-gray-100 pl-5 py-2 cursor-pointer">
-                  {Navbar_lang["add_post"][locale]}
+                  {Navbar_lang["add_post"][props.locale]}
                 </a>
               </Link>
             </li>
@@ -46,7 +44,7 @@ const profileNavbar = (props: any) => {
             <li className="py-1">
               <Link href="/logout">
                 <a className="block text-mute hover:bg-gray-100 pl-5 py-2 cursor-pointer">
-                  {Navbar_lang["logout"][locale]}
+                  {Navbar_lang["logout"][props.locale]}
                 </a>
               </Link>
             </li>
