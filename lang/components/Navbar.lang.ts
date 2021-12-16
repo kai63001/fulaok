@@ -6,5 +6,5 @@ export const Navbar_lang: any = {
   more: { en: "More", th: "อื่นๆ" },
   login: { en: "Sign In", th: "เข้าสู่ระบบ" },
   add_post: { en: "Add Post", th: "เพิ่มโพสต์" },
-  
+  logout: { en: "Logout", th: "ออกจากระบบ" },
 };

@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { Navbar_lang } from "@/lang/components/Navbar.lang";
 
 const profileNavbar = (props: any) => {
+  const { locale = "en" } = useRouter();
+
   return (
     <ul className="flex -top-1">
       <li className="group">
@@ -10,11 +14,12 @@ const profileNavbar = (props: any) => {
               src={props.data.photoURL}
               className="rounded-full bg-white"
               width="35px"
+              height="35px"
               alt=""
             />
           </div>
           <div className="bg-gray-300 relative p-113 rounded-full h-full top-0.5">
-            <div className="bg-white pl-8 rounded-full text-mute pr-4 py-1 flex text-main font-medium">
+            <div className="bg-white pl-8 rounded-full text-mute pr-2 py-1 flex text-main font-medium">
               {props.data.displayName}{" "}
               <svg
                 viewBox="0 0 24 24"
@@ -30,15 +35,17 @@ const profileNavbar = (props: any) => {
         <div className="group-hover:block absolute hidden h-auto z-50 right-5 pt-2">
           <ul className=" w-64 bg-white border rounded-lg">
             <li className="py-1">
-              <a className="block text-mute hover:bg-gray-100 pl-5 py-2 cursor-pointer">
-                Profile
-              </a>
+              <Link href="/add-new-post">
+                <a className="block text-mute hover:bg-gray-100 pl-5 py-2 cursor-pointer">
+                  {Navbar_lang["add_post"][locale]}
+                </a>
+              </Link>
             </li>
             <div className="border-1px "></div>
             <li className="py-1">
               <Link href="/logout">
                 <a className="block text-mute hover:bg-gray-100 pl-5 py-2 cursor-pointer">
-                  Logout
+                  {Navbar_lang["logout"][locale]}
                 </a>
               </Link>
             </li>

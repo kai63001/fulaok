@@ -17,7 +17,6 @@ const Navbar = (props: any) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const uid = user.uid;
         props.addDataUser({
           login: true,
           ...user,
