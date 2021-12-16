@@ -28,28 +28,26 @@ export default class ArticleEditor extends Component {
     });
   };
 
-   uploadImageCallBack: Function = (file:any) => {
-    return new Promise(
-      (resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://api.imgur.com/3/image');
-        xhr.setRequestHeader('Authorization', 'Client-ID ac51ab827872866');
-        const data = new FormData();
-        data.append('image', file);
-        xhr.send(data);
-        xhr.addEventListener('load', () => {
-          const response = JSON.parse(xhr.responseText);
-          console.log(response)
-          resolve(response);
-        });
-        xhr.addEventListener('error', () => {
-          const error = JSON.parse(xhr.responseText);
-          console.log(error)
-          reject(error);
-        });
-      }
-    );
-  }
+  uploadImageCallBack: Function = (file: any) => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://api.imgur.com/3/image");
+      xhr.setRequestHeader("Authorization", "Client-ID ac51ab827872866");
+      const data = new FormData();
+      data.append("image", file);
+      xhr.send(data);
+      xhr.addEventListener("load", () => {
+        const response = JSON.parse(xhr.responseText);
+        console.log(response);
+        resolve(response);
+      });
+      xhr.addEventListener("error", () => {
+        const error = JSON.parse(xhr.responseText);
+        console.log(error);
+        reject(error);
+      });
+    });
+  };
 
   render() {
     const { editorState }: any = this.state;
@@ -86,11 +84,15 @@ export default class ArticleEditor extends Component {
             image: {
               uploadCallback: this.uploadImageCallBack,
               alt: { present: true, mandatory: true },
-              
+              previewImage: true,
             },
           }}
         />
-        <div dangerouslySetInnerHTML={{__html: draftToHtml(convertToRaw(editorState.getCurrentContent()))}} />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+          }}
+        />
         {/* <textarea
           disabled
           value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
