@@ -18,7 +18,7 @@ import dynamic from "next/dynamic";
 
 const Navbar = (props: any) => {
   const { locale = "en" } = useRouter();
-  const [cookies, setCookie] = useCookies();
+  const [cookies, setCookie] = useCookies(["user"]);
   const App = Firebase;
   const auth = getAuth();
   useEffect(() => {
@@ -26,8 +26,11 @@ const Navbar = (props: any) => {
       if (user) {
         // setCookie({})
         setCookie("user", JSON.stringify(user));
+        console.log(user)
+        console.log(cookies.user)
       }
     });
+
   }, [auth, props]);
   const linker = [
     {
@@ -72,7 +75,7 @@ const Navbar = (props: any) => {
             );
           })}
         </ul>
-        {cookies.user ? (
+        {cookies.user.apiKey ? (
           <User locale={locale} data={cookies.user} />
         ) : (
           <ul className="mt-1 flex">
