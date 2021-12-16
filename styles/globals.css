@@ -8,7 +8,7 @@ body {
   font-family: "Kanit", sans-serif !important;
   padding: 0;
   margin: 0;
-  background-color: rgb(250, 249, 250) !important;
+  /* background-color: rgb(250, 249, 250) !important; */
   font-display: swap !important;
 }
 
@@ -89,4 +89,10 @@ hr:after {
 
 .h-39 {
   height:39px
+}
+
+.editor-class {
+  background: white !important;
+  padding: 15px;
+  border: 1px solid #F1F1F1 !important;
 }
