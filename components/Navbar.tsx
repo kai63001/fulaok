@@ -3,7 +3,7 @@ import { Navbar_lang } from "@/lang/components/Navbar.lang";
 import Link from "next/link";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import Firebase from "@/lib/firebase";
+import { Firebase } from "@/lib/firebase";
 import Button from "@/components/custom/Button";
 import { addDataUser } from "@/redux/actions/loginAction";
 import { connect } from "react-redux";

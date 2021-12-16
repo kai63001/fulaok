@@ -1,7 +1,13 @@
-import Layout from "@/components/Layout"
+import Layout from "@/components/Layout";
 
+// import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 const addNewPost = () => {
-    return <Layout>test</Layout>
-}
+  return (
+    <Layout>
+      <div>asdasd</div>
+    </Layout>
+  );
+};
 
-export default addNewPost
+export default addNewPost;
