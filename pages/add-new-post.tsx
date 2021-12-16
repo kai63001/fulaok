@@ -53,46 +53,55 @@ export default class ArticleEditor extends Component {
     const { editorState }: any = this.state;
     return (
       <Layout>
-        <Editor
-          //@ts-ignore
-          editorState={editorState}
-          toolbarClassName="toolbar-class"
-          wrapperClassName="wrapper-class"
-          editorClassName="editor-class"
-          onEditorStateChange={this.onEditorStateChange}
-          handlePastedText={() => false}
-          // toolbarOnFocus
-          toolbar={{
-            options: [
-              "inline",
-              "blockType",
-              "fontSize",
-              "list",
-              "textAlign",
-              "colorPicker",
-              "link",
-              "embedded",
-              "emoji",
-              "image",
-              "history",
-            ],
-            inline: { inDropdown: true },
-            list: { inDropdown: true },
-            textAlign: { inDropdown: true },
-            link: { inDropdown: true },
-            history: { inDropdown: true },
-            image: {
-              uploadCallback: this.uploadImageCallBack,
-              alt: { present: true, mandatory: true },
-              previewImage: true,
-            },
-          }}
-        />
-        <div
+        <div className="grid grid-cols-5 gap-4">
+          <div className="col-span-4">
+            <Editor
+              //@ts-ignore
+              editorState={editorState}
+              toolbarClassName="toolbar-class"
+              wrapperClassName="wrapper-class"
+              editorClassName="editor-class"
+              onEditorStateChange={this.onEditorStateChange}
+              handlePastedText={() => false}
+              // toolbarOnFocus
+              toolbar={{
+                options: [
+                  "inline",
+                  "blockType",
+                  "fontSize",
+                  "list",
+                  "textAlign",
+                  "colorPicker",
+                  "link",
+                  "embedded",
+                  "emoji",
+                  "image",
+                  "history",
+                ],
+                inline: { inDropdown: true },
+                list: { inDropdown: true },
+                textAlign: { inDropdown: true },
+                link: { inDropdown: true },
+                history: { inDropdown: true },
+                image: {
+                  uploadCallback: this.uploadImageCallBack,
+                  alt: { present: true, mandatory: true },
+                  previewImage: true,
+                },
+              }}
+            />
+          </div>
+          <div className="rightDetail">
+              <div className="toolbar-class p-3">
+                  dasd
+              </div>
+          </div>
+        </div>
+        {/* <div
           dangerouslySetInnerHTML={{
             __html: draftToHtml(convertToRaw(editorState.getCurrentContent())),
           }}
-        />
+        /> */}
         {/* <textarea
           disabled
           value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
