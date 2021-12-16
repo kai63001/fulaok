@@ -86,3 +86,7 @@ hr:after {
   inset: 0px auto auto 0px;
   transform: translate(1205px, 55px);
 }
+
+.h-39 {
+  height:39px
+}

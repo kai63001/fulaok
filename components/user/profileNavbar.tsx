@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Navbar_lang } from "@/lang/components/Navbar.lang";
+import Image from "next/image"
 
 const profileNavbar = (props: any) => {
   const { locale = "en" } = useRouter();
@@ -9,10 +10,10 @@ const profileNavbar = (props: any) => {
     <ul className="flex -top-1">
       <li className="group">
         <div className="flex relative cursor-pointer hover:opacity-70 group">
-          <div className="bg-purple-600 relative left-6 p-1px rounded-full z-10">
-            <img
+          <div className="bg-purple-600 relative left-6 p-1px h-39 rounded-full z-10">
+            <Image
               src={props.data.photoURL}
-              className="rounded-full bg-white"
+              className="rounded-full bg-white "
               width="35px"
               height="35px"
               alt=""
