@@ -19,7 +19,7 @@ const Logout = () => {
       .catch((error) => {
         // An error happened.
       });
-  }, [auth, router]);
+  }, [auth, router,setCookie]);
   return <div></div>;
 };
 

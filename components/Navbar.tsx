@@ -31,7 +31,7 @@ const Navbar = (props: any) => {
       }
     });
 
-  }, [auth, props]);
+  }, [auth, props,setCookie]);
   const linker = [
     {
       name: "lifestyle",
