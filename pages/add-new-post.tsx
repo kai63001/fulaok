@@ -94,10 +94,10 @@ const AddNewPost = () => {
                   "insertdatetime media table paste code help wordcount quickbars",
                 ],
                 toolbar:
-                  "undo redo | formatselect | fontsizeselect | link image | visualblocks | preview |" +
+                  "undo redo | preview | formatselect | fontsizeselect | link image |" +
                   "bold italic backcolor | alignleft aligncenter " +
                   "alignright alignjustify | bullist numlist outdent indent | " +
-                  "removeformat | help",
+                  "removeformat ",
                 mobile: {
                   plugins:
                     "print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker textpattern noneditable help formatpainter pageembed charmap mentions quickbars linkchecker emoticons advtable",
@@ -110,7 +110,7 @@ const AddNewPost = () => {
                 images_upload_handler: imageUploader,
               }}
             />
-            <button onClick={log}>Log editor content</button>
+            {/* <button onClick={log}>Log editor content</button> */}
           </div>
         </div>
         <div className="rightDetail">
