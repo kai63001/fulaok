@@ -1,127 +1,124 @@
 import Layout from "@/components/Layout";
-import { convertToRaw, EditorState } from "draft-js";
-import draftToHtml from "draftjs-to-html";
+import { Editor } from "@tinymce/tinymce-react";
 
-const Editor = dynamic(
-  //@ts-ignore
-  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-  { ssr: false }
-);
 // import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 // import { db } from "@/lib/firebase";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 import dynamic from "next/dynamic";
-import { Component } from "react";
-import {withRouter} from 'next/router';
+
+import { useRouter } from "next/router";
 
 import { lang } from "@/lang/add-new-post.lang";
- class ArticleEditor extends Component<any, any> {
-  constructor(props: any) {
-    super(props);
+import { useRef } from "react";
 
-    this.state = {
-      editorState: EditorState.createEmpty(),
+const AddNewPost = () => {
+  const { locale = "en" } = useRouter();
+  const editorRef: any = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
+  function imageUploader(
+    blobInfo: any,
+    success: any,
+    failure: any,
+    progress: any
+  ) {
+    var xhr: any, formData: any;
+
+    xhr = new XMLHttpRequest();
+    // xhr.withCredentials = false;
+    xhr.open("POST", "https://api.imgur.com/3/image");
+    xhr.setRequestHeader("Authorization", "Client-ID ac51ab827872866");
+    xhr.upload.onprogress = function (e: any) {
+      progress((e.loaded / e.total) * 100);
     };
+
+    xhr.onload = function () {
+      var json;
+      // console.log(xhr)
+      if (xhr.status === 403) {
+        failure("HTTP Error: " + xhr.status, { remove: true });
+        return;
+      }
+
+      if (xhr.status < 200 || xhr.status >= 300) {
+        failure("HTTP Error: " + xhr.status);
+        return;
+      }
+
+      json = JSON.parse(xhr.responseText);
+      console.log(json.data);
+      if (!json || typeof json.data.link != "string") {
+        failure("Invalid JSON: " + xhr.responseText);
+        return;
+      }
+
+      success(json.data.link);
+    };
+
+    xhr.onerror = function () {
+      failure(
+        "Image upload failed due to a XHR Transport error. Code: " + xhr.status
+      );
+    };
+
+    formData = new FormData();
+    formData.append("image", blobInfo.blob());
+
+    xhr.send(formData);
   }
-
-  onEditorStateChange: Function = (editorState: any) => {
-    this.setState({
-      editorState,
-    });
-  };
-
-  uploadImageCallBack: Function = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "https://api.imgur.com/3/image");
-      xhr.setRequestHeader("Authorization", "Client-ID ac51ab827872866");
-      const data = new FormData();
-      data.append("image", file);
-      xhr.send(data);
-      xhr.addEventListener("load", () => {
-        const response = JSON.parse(xhr.responseText);
-        console.log(response);
-        resolve(response);
-      });
-      xhr.addEventListener("error", () => {
-        const error = JSON.parse(xhr.responseText);
-        console.log(error);
-        reject(error);
-      });
-    });
-  };
-
-  render() {
-    const { editorState }: any = this.state;
-    // console.log(this.props?.router.locale)
-    // console.log(router)
-    return (
-      <Layout>
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
-          <div className="col-span-4">
-            <h1 className=" text-4xl mb-2">
-              {lang["addNewPost"][this.props?.router.locale]}
-            </h1>
-            <div className="">
-              <input
-                type="text"
-                className="toolbar-class mb-2 p-3 focus:outline-purple-500 w-full"
-                placeholder={lang["entertitle"][this.props?.router.locale]}
-              />
-            </div>
-            <Editor
-              //@ts-ignore
-              editorState={editorState}
-              toolbarClassName="toolbar-class"
-              wrapperClassName="wrapper-class"
-              editorClassName="editor-class"
-              onEditorStateChange={this.onEditorStateChange}
-              handlePastedText={(test: any) => console.log(test)}
-              // toolbarOnFocus
-              toolbar={{
-                options: [
-                  "inline",
-                  "blockType",
-                  "fontSize",
-                  "list",
-                  "textAlign",
-                  "colorPicker",
-                  "link",
-                  "embedded",
-                  "emoji",
-                  "image",
-                  "history",
-                ],
-                inline: { inDropdown: true },
-                list: { inDropdown: true },
-                textAlign: { inDropdown: true },
-                link: { inDropdown: true },
-                history: { inDropdown: true },
-                image: {
-                  uploadCallback: this.uploadImageCallBack,
-                  alt: { present: true, mandatory: true },
-                  previewImage: true,
-                },
-              }}
+  return (
+    <Layout>
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
+        <div className="col-span-4">
+          <h1 className=" text-4xl mb-2">{lang["addNewPost"][locale]}</h1>
+          <div className="">
+            <input
+              type="text"
+              className="toolbar-class mb-2 p-3 focus:outline-purple-500 w-full"
+              placeholder={lang["entertitle"][locale]}
             />
           </div>
-          <div className="rightDetail">
-            <div className="toolbar-class p-3">dasd</div>
+          <div className="toolbar-class">
+            <Editor
+              apiKey="4v4ybw55eo7sjs4ymqodo9udgrfylqdzkuomq6qsqrfpobxl"
+              onInit={(evt, editor) => (editorRef.current = editor)}
+              init={{
+                height: 500,
+                menubar: false,
+                plugins: [
+                  "advlist autolink lists link image charmap print preview anchor",
+                  "searchreplace visualblocks code fullscreen",
+                  "insertdatetime media table paste code help wordcount quickbars",
+                ],
+                toolbar:
+                  "undo redo | formatselect | fontsizeselect | link image | visualblocks | preview |" +
+                  "bold italic backcolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent | " +
+                  "removeformat | help",
+                mobile: {
+                  plugins:
+                    "print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker textpattern noneditable help formatpainter pageembed charmap mentions quickbars linkchecker emoticons advtable",
+                },
+                quickbars_selection_toolbar:
+                  "bold italic | quicklink h2 h3 blockquote quickimage quicktable",
+
+                content_style:
+                  '@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap");body { font-family:Kanit; font-size:16px }',
+                images_upload_handler: imageUploader,
+              }}
+            />
+            <button onClick={log}>Log editor content</button>
           </div>
         </div>
-        {/* <div
-          dangerouslySetInnerHTML={{
-            __html: draftToHtml(convertToRaw(editorState.getCurrentContent())),
-          }}
-        /> */}
-        {/* <textarea
-          disabled
-          value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-        /> */}
-      </Layout>
-    );
-  }
-}
+        <div className="rightDetail">
+          <div className="toolbar-class p-3">dasad</div>
+        </div>
+      </div>
+    </Layout>
+  );
+};
 
-  //@ts-ignore
-export default withRouter(ArticleEditor)
+export default AddNewPost;
