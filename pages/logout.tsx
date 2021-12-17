@@ -13,13 +13,13 @@ const Logout = () => {
   useEffect(() => {
     signOut(auth)
       .then(() => {
-        setCookie("user", JSON.stringify({}));
+        removeCookie("user");
         router.push("/sign-in", undefined, { shallow: true });
       })
       .catch((error) => {
         // An error happened.
       });
-  }, [auth, router,setCookie]);
+  }, [auth, router,removeCookie]);
   return <div></div>;
 };
 

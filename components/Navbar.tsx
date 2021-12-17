@@ -2,11 +2,10 @@ import { useRouter } from "next/router";
 import { Navbar_lang } from "@/lang/components/Navbar.lang";
 import Link from "next/link";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Firebase } from "@/lib/firebase";
 import Button from "@/components/custom/Button";
-import { addDataUser } from "@/redux/actions/loginAction";
-import { connect } from "react-redux";
+
 const User = dynamic(
   //@ts-ignore
   () => import("@/components/user/profileNavbar"),
@@ -65,7 +64,7 @@ const Navbar = (props: any) => {
           </li>
           {linker.map((data, i) => {
             return (
-              <li className="ml-4 mt-2 sm:block hidden" key={i}>
+              <li className="ml-4 mt-2 md:block hidden" key={i}>
                 <Link href={data.link}>
                   <a className="text-mute">
                     {Navbar_lang[data.name][locale.toString()]}

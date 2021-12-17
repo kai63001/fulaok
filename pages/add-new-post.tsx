@@ -1,78 +1,33 @@
 import Layout from "@/components/Layout";
-import { Editor } from "@tinymce/tinymce-react";
-
+// import { Editor } from "@tinymce/tinymce-react";
 // import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 // import { db } from "@/lib/firebase";
-
 import dynamic from "next/dynamic";
-
 import { useRouter } from "next/router";
-
 import { lang } from "@/lang/add-new-post.lang";
 import { useRef } from "react";
+import { ImageUploadImgur } from "@/lib/imageUploader";
+import Button from "@/components/custom/Button";
+const Editor = dynamic(
+  //@ts-ignore
+  () => import("@tinymce/tinymce-react").then((mod) => mod.Editor),
+  { ssr: false }
+);
 
 const AddNewPost = () => {
   const { locale = "en" } = useRouter();
+
   const editorRef: any = useRef(null);
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
     }
   };
-  function imageUploader(
-    blobInfo: any,
-    success: any,
-    failure: any,
-    progress: any
-  ) {
-    var xhr: any, formData: any;
 
-    xhr = new XMLHttpRequest();
-    // xhr.withCredentials = false;
-    xhr.open("POST", "https://api.imgur.com/3/image");
-    xhr.setRequestHeader("Authorization", "Client-ID ac51ab827872866");
-    xhr.upload.onprogress = function (e: any) {
-      progress((e.loaded / e.total) * 100);
-    };
-
-    xhr.onload = function () {
-      var json;
-      // console.log(xhr)
-      if (xhr.status === 403) {
-        failure("HTTP Error: " + xhr.status, { remove: true });
-        return;
-      }
-
-      if (xhr.status < 200 || xhr.status >= 300) {
-        failure("HTTP Error: " + xhr.status);
-        return;
-      }
-
-      json = JSON.parse(xhr.responseText);
-      console.log(json.data);
-      if (!json || typeof json.data.link != "string") {
-        failure("Invalid JSON: " + xhr.responseText);
-        return;
-      }
-
-      success(json.data.link);
-    };
-
-    xhr.onerror = function () {
-      failure(
-        "Image upload failed due to a XHR Transport error. Code: " + xhr.status
-      );
-    };
-
-    formData = new FormData();
-    formData.append("image", blobInfo.blob());
-
-    xhr.send(formData);
-  }
   return (
     <Layout>
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
-        <div className="col-span-4">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div className="md:col-span-4">
           <h1 className=" text-4xl mb-2">{lang["addNewPost"][locale]}</h1>
           <div className="">
             <input
@@ -83,19 +38,21 @@ const AddNewPost = () => {
           </div>
           <div className="toolbar-class">
             <Editor
+              //@ts-ignore
               apiKey="4v4ybw55eo7sjs4ymqodo9udgrfylqdzkuomq6qsqrfpobxl"
-              onInit={(evt, editor) => (editorRef.current = editor)}
+              onInit={(evt: any, editor: any) => (editorRef.current = editor)}
               init={{
-                height: 500,
+                // height: 500,
+                // autoresize_bottom_margin: 400,
                 menubar: false,
                 plugins: [
                   "advlist autolink lists link image charmap print preview anchor",
                   "searchreplace visualblocks code fullscreen",
-                  "insertdatetime media table paste code help wordcount quickbars",
+                  "insertdatetime media table paste code help wordcount quickbars textcolor autoresize pageembed",
                 ],
                 toolbar:
-                  "undo redo | preview | formatselect | fontsizeselect | link image |" +
-                  "bold italic backcolor | alignleft aligncenter " +
+                  "undo redo | preview | formatselect | fontsizeselect | link image pageembed |" +
+                  "bold italic backcolor forecolor | alignleft aligncenter " +
                   "alignright alignjustify | bullist numlist outdent indent | " +
                   "removeformat ",
                 mobile: {
@@ -107,18 +64,44 @@ const AddNewPost = () => {
 
                 content_style:
                   '@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap");body { font-family:Kanit; font-size:16px }',
-                images_upload_handler: imageUploader,
+                images_upload_handler: ImageUploadImgur,
               }}
             />
             {/* <button onClick={log}>Log editor content</button> */}
           </div>
         </div>
-        <div className="rightDetail">
-          <div className="toolbar-class p-3">dasad</div>
+        <div className="rightDetail w-full">
+          <div className="toolbar-class p-3 mb-3">
+            <p className="mb-2">Publish</p>
+            <div className="bg-gray-200 p-3 flex h-32 w-full rounded-md border-2 border-gray-500 border-dashed cursor-pointer">
+              <div className="m-auto text-gray-700">Cover Image</div>
+            </div>
+            <div className="mt-2 flex justify-end">
+              <Button>Publish</Button>
+            </div>
+          </div>
+          <div className="toolbar-class p-3 mb-3">
+            <p className="mb-2">Categories</p>
+          </div>
         </div>
       </div>
     </Layout>
   );
+};
+
+export const getServerSideProps = async (ctx: any) => {
+  const { req, res } = ctx;
+
+  const { cookies } = req;
+  if (cookies.user == undefined) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/sign-in",
+      },
+    };
+  }
+  return { props: {} };
 };
 
 export default AddNewPost;
