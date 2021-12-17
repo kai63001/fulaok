@@ -75,7 +75,7 @@ const Navbar = (props: any) => {
             );
           })}
         </ul>
-        {cookies.user.apiKey ? (
+        {cookies.user?.apiKey != undefined  ? (
           <User locale={locale} data={cookies.user} />
         ) : (
           <ul className="mt-1 flex">
