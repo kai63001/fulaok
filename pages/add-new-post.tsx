@@ -12,7 +12,10 @@ const Editor = dynamic(
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
 import { Component } from "react";
-export default class ArticleEditor extends Component {
+import {withRouter} from 'next/router';
+
+import { lang } from "@/lang/add-new-post.lang";
+ class ArticleEditor extends Component<any, any> {
   constructor(props: any) {
     super(props);
 
@@ -22,7 +25,6 @@ export default class ArticleEditor extends Component {
   }
 
   onEditorStateChange: Function = (editorState: any) => {
-    // console.log(editorState);
     this.setState({
       editorState,
     });
@@ -51,10 +53,22 @@ export default class ArticleEditor extends Component {
 
   render() {
     const { editorState }: any = this.state;
+    // console.log(this.props?.router.locale)
+    // console.log(router)
     return (
       <Layout>
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
           <div className="col-span-4">
+            <h1 className=" text-4xl mb-2">
+              {lang["addNewPost"][this.props?.router.locale]}
+            </h1>
+            <div className="">
+              <input
+                type="text"
+                className="toolbar-class mb-2 p-3 focus:outline-purple-500 w-full"
+                placeholder={lang["entertitle"][this.props?.router.locale]}
+              />
+            </div>
             <Editor
               //@ts-ignore
               editorState={editorState}
@@ -62,7 +76,7 @@ export default class ArticleEditor extends Component {
               wrapperClassName="wrapper-class"
               editorClassName="editor-class"
               onEditorStateChange={this.onEditorStateChange}
-              handlePastedText={() => false}
+              handlePastedText={(test: any) => console.log(test)}
               // toolbarOnFocus
               toolbar={{
                 options: [
@@ -92,9 +106,7 @@ export default class ArticleEditor extends Component {
             />
           </div>
           <div className="rightDetail">
-              <div className="toolbar-class p-3">
-                  dasd
-              </div>
+            <div className="toolbar-class p-3">dasd</div>
           </div>
         </div>
         {/* <div
@@ -110,3 +122,6 @@ export default class ArticleEditor extends Component {
     );
   }
 }
+
+  //@ts-ignore
+export default withRouter(ArticleEditor)

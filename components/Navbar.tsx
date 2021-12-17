@@ -26,8 +26,8 @@ const Navbar = (props: any) => {
       if (user) {
         // setCookie({})
         setCookie("user", JSON.stringify(user));
-        console.log(user)
-        console.log(cookies.user)
+        // console.log(user)
+        // console.log(cookies.user)
       }
     });
 
