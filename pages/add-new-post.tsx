@@ -45,6 +45,7 @@ const AddNewPost = () => {
                 // height: 500,
                 // autoresize_bottom_margin: 400,
                 menubar: false,
+                // image_caption: true,
                 plugins: [
                   "advlist autolink lists link image charmap print preview anchor",
                   "searchreplace visualblocks code fullscreen",

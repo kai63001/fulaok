@@ -13,6 +13,7 @@ module.exports = withBundleAnalyzer({
   images: {
     domains: [
       "graph.facebook.com",
+      "i.imgur.com",
       "drive.google.com",
       "lh3.googleusercontent.com",
     ],
