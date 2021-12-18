@@ -5,7 +5,7 @@ import Layout from "@/components/Layout";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { lang } from "@/lang/add-new-post.lang";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ImageUploadImgur } from "@/lib/imageUploader";
 import Button from "@/components/custom/Button";
 const Editor = dynamic(
@@ -17,11 +17,32 @@ const Editor = dynamic(
 const AddNewPost = () => {
   const { locale = "en" } = useRouter();
 
+  const [dataUri, setDataUri] = useState("");
   const editorRef: any = useRef(null);
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
     }
+  };
+
+  const fileToDataUri = (file: any) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        resolve(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  const coverImageChange = (e: any) => {
+    const file = e.target.files[0] || null;
+    if (!file) {
+      setDataUri("");
+      return;
+    }
+
+    fileToDataUri(file).then((dataUri: any) => {
+      return setDataUri(dataUri);
+    });
   };
 
   return (
@@ -74,9 +95,28 @@ const AddNewPost = () => {
         <div className="rightDetail w-full">
           <div className="toolbar-class p-3 mb-3">
             <p className="mb-2">Publish</p>
-            <div className="bg-gray-200 p-3 flex h-32 w-full rounded-md border-2 border-gray-500 border-dashed cursor-pointer">
-              <div className="m-auto text-gray-700">Cover Image</div>
-            </div>
+            {dataUri.length > 0 ? (
+              <label
+                htmlFor="coverImage"
+                className=" cursor-pointer rounded-md"
+              >
+                <img src={dataUri} className="rounded-md" width="100%" alt="" />
+              </label>
+            ) : (
+              <label
+                htmlFor="coverImage"
+                className="bg-gray-200 p-3 flex h-32 w-full rounded-md border-2 border-gray-500 border-dashed cursor-pointer"
+              >
+                <div className="m-auto text-gray-700">Cover Image</div>
+              </label>
+            )}
+
+            <input
+              onChange={coverImageChange}
+              className="hidden"
+              id="coverImage"
+              type="file"
+            />
             <div className="mt-2 flex justify-end">
               <Button>Publish</Button>
             </div>
