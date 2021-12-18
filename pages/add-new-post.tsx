@@ -16,7 +16,6 @@ const Editor = dynamic(
 
 const AddNewPost = () => {
   const { locale = "en" } = useRouter();
-
   const [dataUri, setDataUri] = useState("");
   const editorRef: any = useRef(null);
   const log = () => {
@@ -24,6 +23,8 @@ const AddNewPost = () => {
       console.log(editorRef.current.getContent());
     }
   };
+
+  const [categoryChange,setCategoryChange] = useState(0)
 
   const fileToDataUri = (file: any) =>
     new Promise((resolve, reject) => {
@@ -113,6 +114,7 @@ const AddNewPost = () => {
 
             <input
               onChange={coverImageChange}
+              accept="image/gif, image/jpeg, image/png"
               className="hidden"
               id="coverImage"
               type="file"
@@ -123,6 +125,23 @@ const AddNewPost = () => {
           </div>
           <div className="toolbar-class p-3 mb-3">
             <p className="mb-2">Categories</p>
+            <div className="flex">
+              <div
+              onClick={()=>setCategoryChange(0)}
+                className={` px-2 py-1 cursor-pointer ${categoryChange == 0 ? 'bg-purple-500 text-white' :''}`}
+              >
+                All Categories
+              </div>
+              <div onClick={()=>setCategoryChange(1)} className={`px-2 py-1 cursor-pointer ${categoryChange == 1 ? 'bg-purple-500 text-white' :''}`}>Most Used</div>
+            </div>
+            <div className="border p-2">
+              <div className="form-check w-full">
+                <input name="LifeStyle" id="LifeStyle" type="checkbox"  className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" />
+                <label htmlFor="LifeStyle" className="ml-2 select-none	cursor-pointer">
+                  LifeStyle
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
