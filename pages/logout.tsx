@@ -14,12 +14,12 @@ const Logout = () => {
     signOut(auth)
       .then(() => {
         removeCookie("user");
-        router.push("/sign-in", undefined, { shallow: true });
+        window.location.href = `/${router.locale}/sign-in`;
       })
       .catch((error) => {
         // An error happened.
       });
-  }, [auth, router,removeCookie]);
+  }, [auth, router, removeCookie]);
   return <div></div>;
 };
 

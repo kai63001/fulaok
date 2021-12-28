@@ -204,6 +204,7 @@ export const getServerSideProps = async (ctx: any) => {
   const { req, res } = ctx;
 
   const { cookies } = req;
+  // console.log(cookies);
   if (cookies.user == undefined) {
     return {
       redirect: {

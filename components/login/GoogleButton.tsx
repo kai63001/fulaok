@@ -13,7 +13,8 @@ const GoogleButton = () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const user = result.user;
-        router.push("/", undefined, { shallow: true });
+        window.location.href = '/'
+
       })
       .catch((error) => {
         const errorCode = error.code;

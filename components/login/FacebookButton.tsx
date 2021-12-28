@@ -16,7 +16,8 @@ const FacebookButton = () => {
 
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential?.accessToken;
-        router.push("/", undefined, { shallow: true });
+        // router.push("/", undefined, { shallow: true });
+        window.location.href = '/'
       })
       .catch((error) => {
         const errorCode = error.code;
