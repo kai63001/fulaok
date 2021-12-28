@@ -11,13 +11,22 @@ const Editor = dynamic(
   { ssr: false }
 );
 import { db } from "@/lib/firebase";
-import { addDoc, collection, doc, getDocs, query, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+} from "firebase/firestore";
 
 const AddNewPost = () => {
-  const { locale = "en" } = useRouter();
-  const [dataUri, setDataUri] = useState("");
-  const [dataCategory, setDataCategory]:any = useState({});
-  const editorRef: any = useRef(null);
+  const { locale = "en" } = useRouter(); // locale lang
+  const [dataUri, setDataUri] = useState(""); //uri cover image
+  const [dataCategory, setDataCategory]: any = useState({}); // data category from database
+  const [category, setCategory]: any = useState({}); // data category input checkbox
+  const editorRef: any = useRef(null); // editor
+
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
@@ -25,17 +34,13 @@ const AddNewPost = () => {
   };
   const getCategory = async () => {
     const q = await getDocs(query(collection(db, "category")));
-    setDataCategory(q)
-    console.log(q)
+    setDataCategory(q);
+    console.log(q);
   };
 
-  useEffect(()=>{
-    getCategory()
-  },[])
-
-  // getCategory();
-
-  const listCategory = ["LifeStyle", "Funny"];
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   const [categoryChange, setCategoryChange] = useState(0);
 
@@ -47,6 +52,7 @@ const AddNewPost = () => {
       };
       reader.readAsDataURL(file);
     });
+
   const coverImageChange = (e: any) => {
     const file = e.target.files[0] || null;
     if (!file) {
@@ -57,6 +63,10 @@ const AddNewPost = () => {
     fileToDataUri(file).then((dataUri: any) => {
       return setDataUri(dataUri);
     });
+  };
+
+  const post = () => {
+    console.log(category);
   };
 
   return (
@@ -133,7 +143,9 @@ const AddNewPost = () => {
               type="file"
             />
             <div className="mt-2 flex justify-end">
-              <Button>Publish</Button>
+              <div className="cursor-pointer" onClick={post}>
+                <Button>Publish</Button>
+              </div>
             </div>
           </div>
           <div className="toolbar-class p-3 mb-3">
@@ -157,13 +169,18 @@ const AddNewPost = () => {
               </div>
             </div>
             <div className="border p-2">
-              {dataCategory.docs?.map((data:any, i:any) => {
+              {dataCategory.docs?.map((data: any, i: any) => {
                 return (
                   <div key={i} className="form-check w-full mb-1">
                     <input
                       name={data.id}
                       id={data.id}
                       type="checkbox"
+                      onChange={(e) =>
+                        setCategory({
+                          [e.target.name]: e.target.checked,
+                        })
+                      }
                       className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     />
                     <label
