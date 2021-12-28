@@ -1,11 +1,8 @@
 import Layout from "@/components/Layout";
-// import { Editor } from "@tinymce/tinymce-react";
-// import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-// import { db } from "@/lib/firebase";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { lang } from "@/lang/add-new-post.lang";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ImageUploadImgur } from "@/lib/imageUploader";
 import Button from "@/components/custom/Button";
 const Editor = dynamic(
@@ -13,18 +10,34 @@ const Editor = dynamic(
   () => import("@tinymce/tinymce-react").then((mod) => mod.Editor),
   { ssr: false }
 );
+import { db } from "@/lib/firebase";
+import { addDoc, collection, doc, getDocs, query, setDoc } from "firebase/firestore";
 
 const AddNewPost = () => {
   const { locale = "en" } = useRouter();
   const [dataUri, setDataUri] = useState("");
+  const [dataCategory, setDataCategory]:any = useState({});
   const editorRef: any = useRef(null);
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
     }
   };
+  const getCategory = async () => {
+    const q = await getDocs(query(collection(db, "category")));
+    setDataCategory(q)
+    console.log(q)
+  };
 
-  const [categoryChange,setCategoryChange] = useState(0)
+  useEffect(()=>{
+    getCategory()
+  },[])
+
+  // getCategory();
+
+  const listCategory = ["LifeStyle", "Funny"];
+
+  const [categoryChange, setCategoryChange] = useState(0);
 
   const fileToDataUri = (file: any) =>
     new Promise((resolve, reject) => {
@@ -58,7 +71,7 @@ const AddNewPost = () => {
               placeholder={lang["entertitle"][locale]}
             />
           </div>
-          <div className="toolbar-class">
+          <div className="toolbar-class cursor-text">
             <Editor
               //@ts-ignore
               apiKey="4v4ybw55eo7sjs4ymqodo9udgrfylqdzkuomq6qsqrfpobxl"
@@ -127,20 +140,41 @@ const AddNewPost = () => {
             <p className="mb-2">Categories</p>
             <div className="flex">
               <div
-              onClick={()=>setCategoryChange(0)}
-                className={` px-2 py-1 cursor-pointer ${categoryChange == 0 ? 'bg-purple-500 text-white' :''}`}
+                onClick={() => setCategoryChange(0)}
+                className={` px-2 py-1 cursor-pointer ${
+                  categoryChange == 0 ? "bg-purple-500 text-white" : ""
+                }`}
               >
                 All Categories
               </div>
-              <div onClick={()=>setCategoryChange(1)} className={`px-2 py-1 cursor-pointer ${categoryChange == 1 ? 'bg-purple-500 text-white' :''}`}>Most Used</div>
+              <div
+                onClick={() => setCategoryChange(1)}
+                className={`px-2 py-1 cursor-pointer ${
+                  categoryChange == 1 ? "bg-purple-500 text-white" : ""
+                }`}
+              >
+                Most Used
+              </div>
             </div>
             <div className="border p-2">
-              <div className="form-check w-full">
-                <input name="LifeStyle" id="LifeStyle" type="checkbox"  className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" />
-                <label htmlFor="LifeStyle" className="ml-2 select-none	cursor-pointer">
-                  LifeStyle
-                </label>
-              </div>
+              {dataCategory.docs?.map((data:any, i:any) => {
+                return (
+                  <div key={i} className="form-check w-full mb-1">
+                    <input
+                      name={data.id}
+                      id={data.id}
+                      type="checkbox"
+                      className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                    />
+                    <label
+                      htmlFor={data.id}
+                      className="ml-2 select-none	cursor-pointer"
+                    >
+                      {data.id}
+                    </label>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
