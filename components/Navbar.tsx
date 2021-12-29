@@ -5,6 +5,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { Firebase } from "@/lib/firebase";
 import Button from "@/components/custom/Button";
+import Image from "next/image";
 
 const User = dynamic(
   //@ts-ignore
@@ -57,7 +58,10 @@ const Navbar = (props: any) => {
         <ul className="flex">
           <li className="mr-2 mt-1">
             <Link href="/">
-              <a className="text-2xl logo">MoonsBlog</a>
+              <a className="text-2xl flex">
+                <Image src="/iconfula.png" width="30" height="30" />
+                <span className="logo text-gray-700">ula <span className="text-xl">OK</span></span>
+              </a>
             </Link>
           </li>
           {linker.map((data, i) => {

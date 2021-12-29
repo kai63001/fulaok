@@ -6,8 +6,8 @@ const Header = (props:any) => {
     <NextSeo
       title={
         props.title
-          ? `${props.title} | Moons Blog`
-          : "Moons Blog"
+          ? `${props.title} | Fula OK`
+          : "Fula OK"
       }
       description={
         props.des
@@ -19,8 +19,8 @@ const Header = (props:any) => {
         type: "website",
         locale: "en_EN",
         title: props.title
-          ? `${props.title} | Moons Blog`
-          : "Moons Blog",
+          ? `${props.title} | Fula OK`
+          : "Fula OK",
         description: props.des
           ? props.des
           : "Moonsblog post it",
