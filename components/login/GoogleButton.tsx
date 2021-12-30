@@ -1,7 +1,7 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Firebase, db } from "@/lib/firebase";
 // import router from "next/router";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 
 const GoogleButton = () => {
   const app = Firebase;
@@ -15,7 +15,7 @@ const GoogleButton = () => {
         const token = credential?.accessToken;
         const user = result.user;
         await setDoc(doc(db, "users", user.uid), {
-          lastLogin: Date(),
+          lastLogin: Timestamp.now(),
         }, { merge: true });
         console.log(user.uid);
         window.location.href = "/";

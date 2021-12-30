@@ -1,7 +1,7 @@
 import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
 import { Firebase, db } from "@/lib/firebase";
 // import router from "next/router";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 
 const FacebookButton = () => {
   const app = Firebase;
@@ -21,7 +21,7 @@ const FacebookButton = () => {
         await setDoc(
           doc(db, "users", user.uid),
           {
-            lastLogin: Date(),
+            lastLogin: Timestamp.now(),
           },
           { merge: true }
         );
