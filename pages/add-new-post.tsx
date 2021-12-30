@@ -66,7 +66,12 @@ const AddNewPost = () => {
   };
 
   const post = () => {
-    console.log(category);
+    let categoryNow: string[] = [];
+    Object.keys(category).forEach((data, i) => {
+      if(category[data] == true) categoryNow.push(data)
+    });
+    console.log(categoryNow)
+    // console.log(category);
   };
 
   return (
