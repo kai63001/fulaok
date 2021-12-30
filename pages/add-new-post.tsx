@@ -21,7 +21,8 @@ import {
 } from "firebase/firestore";
 
 const AddNewPost = () => {
-  const { locale = "en" } = useRouter(); // locale lang
+  const { locale = "en", push } = useRouter(); // locale lang
+
   const [title, setTitle] = useState("");
   const [dataUri, setDataUri] = useState(""); //uri cover image
   const [dataCategory, setDataCategory]: any = useState({}); // data category from database
@@ -91,9 +92,6 @@ const AddNewPost = () => {
   };
 
   const addToDatabase = async (category: string[], image: string) => {
-    console.log(category, image);
-    console.log(editorRef.current.getContent());
-
     try {
       const docRef = await addDoc(collection(db, "post"), {
         title,
@@ -102,6 +100,7 @@ const AddNewPost = () => {
         detail: editorRef.current.getContent(),
       });
       console.log("Document written with ID: ", docRef.id);
+      push(`/read/${docRef.id}`, undefined, { shallow: true });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
