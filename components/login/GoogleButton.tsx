@@ -16,7 +16,7 @@ const GoogleButton = () => {
         const user = result.user;
         await setDoc(doc(db, "users", user.uid), {
           lastLogin: Date(),
-        });
+        }, { merge: true });
         console.log(user.uid);
         window.location.href = "/";
       })
