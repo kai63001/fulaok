@@ -22,9 +22,11 @@ import {
 
 const AddNewPost = () => {
   const { locale = "en" } = useRouter(); // locale lang
+  const [title, setTitle] = useState("");
   const [dataUri, setDataUri] = useState(""); //uri cover image
   const [dataCategory, setDataCategory]: any = useState({}); // data category from database
   const [category, setCategory]: any = useState({}); // data category input checkbox
+  const [posted, setPosted] = useState(false); //
   const editorRef: any = useRef(null); // editor
 
   const log = () => {
@@ -35,7 +37,6 @@ const AddNewPost = () => {
   const getCategory = async () => {
     const q = await getDocs(query(collection(db, "category")));
     setDataCategory(q);
-    console.log(q);
   };
 
   useEffect(() => {
@@ -71,23 +72,39 @@ const AddNewPost = () => {
   };
 
   const post = async () => {
-    let categoryNow: string[] = [];
-    Object.keys(category).forEach((data, i) => {
-      if (category[data] == true) categoryNow.push(data);
-    });
-    const success = (data: string) => {
-      addToDatabase(categoryNow, data);
-    };
-    await ImageUploadImgur(
-      dataUri.replace(/data:image\/png;base64/g, ""),
-      success,
-      test,
-      test
-    );
+    if (posted == false) {
+      let categoryNow: string[] = [];
+      Object.keys(category).forEach((data, i) => {
+        if (category[data] == true) categoryNow.push(data);
+      });
+      const success = (data: string) => {
+        addToDatabase(categoryNow, data);
+      };
+      await ImageUploadImgur(
+        dataUri.replace(/data:image\/png;base64/g, ""),
+        success,
+        test,
+        test
+      );
+    }
+    setPosted(true);
   };
 
-  const addToDatabase = (category: string[], image: string) => {
+  const addToDatabase = async (category: string[], image: string) => {
     console.log(category, image);
+    console.log(editorRef.current.getContent());
+
+    try {
+      const docRef = await addDoc(collection(db, "post"), {
+        title,
+        category,
+        image,
+        detail: editorRef.current.getContent(),
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   };
 
   return (
@@ -98,6 +115,7 @@ const AddNewPost = () => {
           <div className="">
             <input
               type="text"
+              onChange={(e) => setTitle(e.target.value)}
               className="toolbar-class mb-2 p-3 focus:outline-purple-500 w-full"
               placeholder={lang["entertitle"][locale]}
             />
@@ -165,7 +183,7 @@ const AddNewPost = () => {
             />
             <div className="mt-2 flex justify-end">
               <div className="cursor-pointer" onClick={post}>
-                <Button>Publish</Button>
+                <Button end={posted}>Publish</Button>
               </div>
             </div>
           </div>
