@@ -5,7 +5,6 @@ const ImageUploadImgur = (
   progress: any
 ) => {
   var xhr: any, formData: any;
-
   xhr = new XMLHttpRequest();
   // xhr.withCredentials = false;
   xhr.open("POST", "https://api.imgur.com/3/image");
@@ -28,7 +27,6 @@ const ImageUploadImgur = (
     }
 
     json = JSON.parse(xhr.responseText);
-    console.log(json.data);
     if (!json || typeof json.data.link != "string") {
       failure("Invalid JSON: " + xhr.responseText);
       return;
@@ -44,8 +42,9 @@ const ImageUploadImgur = (
   };
 
   formData = new FormData();
-  formData.append("image", blobInfo.blob());
-
+  // check type of blobinfo where that upload from
+  const dataImage = typeof blobInfo == "string" ? blobInfo : blobInfo.blob();
+  formData.append("image", dataImage);
   xhr.send(formData);
 };
 

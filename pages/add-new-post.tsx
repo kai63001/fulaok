@@ -55,6 +55,7 @@ const AddNewPost = () => {
 
   const coverImageChange = (e: any) => {
     const file = e.target.files[0] || null;
+    console.log(e.target.files[0]);
     if (!file) {
       setDataUri("");
       return;
@@ -65,13 +66,28 @@ const AddNewPost = () => {
     });
   };
 
-  const post = () => {
+  const test = (data: any) => {
+    // console.log(data);
+  };
+
+  const post = async () => {
     let categoryNow: string[] = [];
     Object.keys(category).forEach((data, i) => {
-      if(category[data] == true) categoryNow.push(data)
+      if (category[data] == true) categoryNow.push(data);
     });
-    console.log(categoryNow)
-    // console.log(category);
+    const success = (data: string) => {
+      addToDatabase(categoryNow, data);
+    };
+    await ImageUploadImgur(
+      dataUri.replace(/data:image\/png;base64/g, ""),
+      success,
+      test,
+      test
+    );
+  };
+
+  const addToDatabase = (category: string[], image: string) => {
+    console.log(category, image);
   };
 
   return (
