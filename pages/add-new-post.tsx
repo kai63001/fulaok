@@ -10,7 +10,7 @@ const Editor = dynamic(
   () => import("@tinymce/tinymce-react").then((mod) => mod.Editor),
   { ssr: false }
 );
-import { db } from "@/lib/firebase";
+import { db, Firebase } from "@/lib/firebase";
 import {
   addDoc,
   collection,
@@ -19,10 +19,12 @@ import {
   query,
   setDoc,
 } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const AddNewPost = () => {
   const { locale = "en", push } = useRouter(); // locale lang
-
+  const App = Firebase;
+  const auth = getAuth();
   const [title, setTitle] = useState("");
   const [dataUri, setDataUri] = useState(""); //uri cover image
   const [dataCategory, setDataCategory]: any = useState({}); // data category from database
@@ -93,14 +95,21 @@ const AddNewPost = () => {
 
   const addToDatabase = async (category: string[], image: string) => {
     try {
-      const docRef = await addDoc(collection(db, "post"), {
-        title,
-        category,
-        image,
-        detail: editorRef.current.getContent(),
+      console.log("1111")
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const docRef = await addDoc(collection(db, "post"), {
+            title,
+            category,
+            image,
+            detail: editorRef.current.getContent(),
+            userId: user.uid,
+          });
+          console.log("Document written with ID: ", docRef.id);
+          push(`/read/${docRef.id}`, undefined, { shallow: true });
+        } else {
+        }
       });
-      console.log("Document written with ID: ", docRef.id);
-      push(`/read/${docRef.id}`, undefined, { shallow: true });
     } catch (e) {
       console.error("Error adding document: ", e);
     }

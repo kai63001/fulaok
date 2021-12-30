@@ -1,6 +1,7 @@
 import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
-import {Firebase} from "@/lib/firebase";
-import router from "next/router";
+import { Firebase,db } from "@/lib/firebase";
+// import router from "next/router";
+import { doc, setDoc } from "firebase/firestore";
 
 const FacebookButton = () => {
   const app = Firebase;
@@ -11,20 +12,23 @@ const FacebookButton = () => {
   const auth = getAuth();
   const login = () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
 
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential?.accessToken;
         // router.push("/", undefined, { shallow: true });
-        window.location.href = '/'
+        await setDoc(doc(db, "users", user.uid), {
+          lastLogin: Date.now()
+        });
+        console.log(user.uid)
+        window.location.href = "/";
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         const email = error.email;
         const credential = FacebookAuthProvider.credentialFromError(error);
-
       });
   };
   return (

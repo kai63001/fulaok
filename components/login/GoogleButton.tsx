@@ -1,6 +1,7 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { Firebase } from "@/lib/firebase";
-import router from "next/router";
+import { Firebase, db } from "@/lib/firebase";
+// import router from "next/router";
+import { doc, setDoc } from "firebase/firestore";
 
 const GoogleButton = () => {
   const app = Firebase;
@@ -9,12 +10,15 @@ const GoogleButton = () => {
 
   const login = () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const user = result.user;
-        window.location.href = '/'
-
+        await setDoc(doc(db, "users", user.uid), {
+          lastLogin: Date(),
+        });
+        console.log(user.uid);
+        window.location.href = "/";
       })
       .catch((error) => {
         const errorCode = error.code;
