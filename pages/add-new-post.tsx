@@ -18,6 +18,7 @@ import {
   getDocs,
   query,
   setDoc,
+  Timestamp,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -95,7 +96,7 @@ const AddNewPost = () => {
 
   const addToDatabase = async (category: string[], image: string) => {
     try {
-      console.log("1111")
+      console.log("1111");
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           const docRef = await addDoc(collection(db, "post"), {
@@ -103,7 +104,8 @@ const AddNewPost = () => {
             category,
             image,
             detail: editorRef.current.getContent(),
-            userId: user.uid,
+            userId: doc(db, "users/" + user.uid),
+            date: new Date().getTime(),
           });
           console.log("Document written with ID: ", docRef.id);
           push(`/read/${docRef.id}`, undefined, { shallow: true });

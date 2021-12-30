@@ -21,7 +21,7 @@ const FacebookButton = () => {
         await setDoc(
           doc(db, "users", user.uid),
           {
-            lastLogin: Timestamp.now(),
+            lastLogin:  new Date().getTime(),
           },
           { merge: true }
         );

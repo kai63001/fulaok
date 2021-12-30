@@ -14,9 +14,13 @@ const GoogleButton = () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const user = result.user;
-        await setDoc(doc(db, "users", user.uid), {
-          lastLogin: Timestamp.now(),
-        }, { merge: true });
+        await setDoc(
+          doc(db, "users", user.uid),
+          {
+            lastLogin: new Date().getTime(),
+          },
+          { merge: true }
+        );
         console.log(user.uid);
         window.location.href = "/";
       })

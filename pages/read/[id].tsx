@@ -10,10 +10,10 @@ import { db } from "@/lib/firebase";
 import Layout from "@/components/Layout";
 
 const Read = (props: any) => {
-  // console.log(props.data);
+  console.log(props.data);
   return (
     <Layout>
-      {/* <div dangerouslySetInnerHTML={{ __html: props.data.detail }} /> */}
+      <div dangerouslySetInnerHTML={{ __html: props.data.detail }} />
     </Layout>
   );
 };
@@ -32,7 +32,7 @@ export async function getServerSideProps(context: any) {
   // const user: any = await getDoc(doc(db, "users", snap));
   return {
     props: {
-      // data: snap.data(),
+      data: snap,
     },
   };
 }
