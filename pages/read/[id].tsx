@@ -13,7 +13,11 @@ const Read = (props: any) => {
   console.log(props.data);
   return (
     <Layout>
-      <div dangerouslySetInnerHTML={{ __html: props.data.detail }} />
+      <div className="grid sm:grid-cols-4 grid-cols-1 gap-4">
+        <div className="overflow-hidden col-span-3">
+          <div dangerouslySetInnerHTML={{ __html: props.data.detail }} />
+        </div>
+      </div>
     </Layout>
   );
 };
@@ -24,8 +28,8 @@ export async function getServerSideProps(context: any) {
       const user = await getDoc(nowSnap.data().userId);
       return {
         ...nowSnap.data(),
-        ["userId"]: user.data()
-      }
+        ["userId"]: user.data(),
+      };
     }
   );
   console.log(snap);

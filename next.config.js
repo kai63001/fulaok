@@ -16,6 +16,7 @@ module.exports = withBundleAnalyzer({
       "i.imgur.com",
       "drive.google.com",
       "lh3.googleusercontent.com",
+      "petmaya.com"
     ],
   },
 });
