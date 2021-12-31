@@ -33,11 +33,11 @@ const AddNewPost = () => {
   const [posted, setPosted] = useState(false); //
   const editorRef: any = useRef(null); // editor
 
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
+  // const log = () => {
+  //   if (editorRef.current) {
+  //     console.log(editorRef.current.getContent());
+  //   }
+  // };
   const getCategory = async () => {
     const q = await getDocs(query(collection(db, "category")));
     setDataCategory(q);
@@ -72,7 +72,7 @@ const AddNewPost = () => {
   };
 
   const test = (data: any) => {
-    // console.log(data);
+    console.log(data);
   };
 
   const post = async () => {
@@ -82,21 +82,25 @@ const AddNewPost = () => {
         if (category[data] == true) categoryNow.push(data);
       });
       const success = (data: string) => {
+        console.log("success");
         addToDatabase(categoryNow, data);
       };
       await ImageUploadImgur(
-        dataUri.replace(/data:image\/png;base64/g, ""),
+        dataUri
+          .replace(/data:image\/png;base64/g, "")
+          .replace(/data:image\/jpg;base64/g, "")
+          .replace(/data:image\/jpeg;base64/g, ""),
         success,
         test,
         test
       );
+      setPosted(true);
     }
-    setPosted(true);
   };
 
   const addToDatabase = async (category: string[], image: string) => {
     try {
-      console.log("1111");
+      console.log("addToDatabase()");
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           const docRef = await addDoc(collection(db, "post"), {
