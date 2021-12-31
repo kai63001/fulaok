@@ -61,8 +61,8 @@ const AddNewPost = () => {
 
   const coverImageChange = (e: any) => {
     setError({
-      cover:false
-    })
+      cover: false,
+    });
     const file = e.target.files[0] || null;
     console.log(e.target.files[0]);
     if (!file) {
@@ -95,10 +95,10 @@ const AddNewPost = () => {
       return;
     }
     // check error image cover
-    if(dataUri.length <= 0) {
+    if (dataUri.length <= 0) {
       setError({
-        cover: true
-      })
+        cover: true,
+      });
       return;
     }
 
@@ -176,17 +176,15 @@ const AddNewPost = () => {
             <Editor
               //@ts-ignore
               apiKey="4v4ybw55eo7sjs4ymqodo9udgrfylqdzkuomq6qsqrfpobxl"
-              onChange={(e:any)=>{
+              onChange={(e: any) => {
                 setError({
-                  editor: false
-                })
+                  editor: false,
+                });
               }}
               onInit={(evt: any, editor: any) => (editorRef.current = editor)}
               init={{
-                // height: 500,
-                // autoresize_bottom_margin: 400,
                 menubar: false,
-                // image_caption: true,
+                image_caption: true,
                 plugins: [
                   "advlist autolink lists link image charmap print preview anchor",
                   "searchreplace visualblocks code fullscreen",
@@ -197,6 +195,7 @@ const AddNewPost = () => {
                   "bold italic backcolor forecolor | alignleft aligncenter " +
                   "alignright alignjustify | bullist numlist outdent indent | " +
                   "removeformat ",
+                // fontsizeselect: "14pt",
                 mobile: {
                   plugins:
                     "print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker textpattern noneditable help formatpainter pageembed charmap mentions quickbars linkchecker emoticons advtable",
@@ -204,8 +203,7 @@ const AddNewPost = () => {
                 quickbars_selection_toolbar:
                   "bold italic | quicklink h2 h3 blockquote quickimage quicktable",
 
-                content_style:
-                  `@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap");body { font-family:Kanit; font-size:16px }'`,
+                content_style: `@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap");body { font-family:Kanit; font-size:14pt; }'`,
                 images_upload_handler: ImageUploadImgur,
               }}
             />
@@ -225,7 +223,11 @@ const AddNewPost = () => {
             ) : (
               <label
                 htmlFor="coverImage"
-                className={`bg-gray-200 p-3 flex h-32 w-full rounded-md border-2 ${error["cover"] ? 'border-red-500 text-red-600': 'border-gray-500 text-gray-700'} border-dashed cursor-pointer`}
+                className={`bg-gray-200 p-3 flex h-32 w-full rounded-md border-2 ${
+                  error["cover"]
+                    ? "border-red-500 text-red-600"
+                    : "border-gray-500 text-gray-700"
+                } border-dashed cursor-pointer`}
               >
                 <div className="m-auto ">Cover Image</div>
               </label>
