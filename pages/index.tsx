@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Layout from "@/components/Layout";
 import Card from "@/components/custom/Card";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
 const Home: NextPage = (props: any) => {
@@ -23,7 +23,9 @@ const Home: NextPage = (props: any) => {
 export async function getServerSideProps(context: any) {
   // console.log(context.locale);
   let data: any = [];
-  const q: any = await getDocs(query(collection(db, "post")));
+  const q: any = await getDocs(
+    query(collection(db, "post"), orderBy("date", "desc"))
+  );
   q.forEach((doc: any) => {
     let fixData = doc.data();
     fixData.userId = [];

@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+const path = require('path')
+
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 module.exports = withBundleAnalyzer({
+  sassOptions: {
+    includePaths: [path.join(__dirname, "styles")],
+  },
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
@@ -16,7 +21,7 @@ module.exports = withBundleAnalyzer({
       "i.imgur.com",
       "drive.google.com",
       "lh3.googleusercontent.com",
-      "petmaya.com"
+      "petmaya.com",
     ],
   },
 });

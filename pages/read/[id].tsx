@@ -10,12 +10,14 @@ import { db } from "@/lib/firebase";
 import Layout from "@/components/Layout";
 
 const Read = (props: any) => {
-  console.log(props.data);
+
+  // console.log(props.data);
   return (
     <Layout>
-      <div className="grid sm:grid-cols-4 grid-cols-1 gap-4">
-        <div className="overflow-hidden col-span-3">
-          <div dangerouslySetInnerHTML={{ __html: props.data.detail }} />
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
+        <div className="overflow-hidden col-span-2">
+          <h1 className="text-4xl font-medium mb-4">{props.data.title}</h1>
+          <div className="no-tailwindcss-base" dangerouslySetInnerHTML={{ __html: props.data.detail }} />
         </div>
       </div>
     </Layout>
@@ -32,7 +34,7 @@ export async function getServerSideProps(context: any) {
       };
     }
   );
-  console.log(snap);
+  // console.log(snap);
   // const user: any = await getDoc(doc(db, "users", snap));
   return {
     props: {

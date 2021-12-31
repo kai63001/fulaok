@@ -205,7 +205,7 @@ const AddNewPost = () => {
                   "bold italic | quicklink h2 h3 blockquote quickimage quicktable",
 
                 content_style:
-                  '@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap");body { font-family:Kanit; font-size:16px }',
+                  `@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap");body { font-family:Kanit; font-size:16px }'`,
                 images_upload_handler: ImageUploadImgur,
               }}
             />
