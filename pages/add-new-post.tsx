@@ -32,6 +32,7 @@ const AddNewPost = () => {
   const [category, setCategory]: any = useState({}); // data category input checkbox
   const [posted, setPosted] = useState(false); //
   const editorRef: any = useRef(null); // editor
+  const [error, setError]: any = useState({}); // error alert check
 
   // const log = () => {
   //   if (editorRef.current) {
@@ -59,6 +60,9 @@ const AddNewPost = () => {
     });
 
   const coverImageChange = (e: any) => {
+    setError({
+      cover:false
+    })
     const file = e.target.files[0] || null;
     console.log(e.target.files[0]);
     if (!file) {
@@ -76,6 +80,28 @@ const AddNewPost = () => {
   };
 
   const post = async () => {
+    // check error title
+    if (title.length <= 0) {
+      setError({
+        title: true,
+      });
+      return;
+    }
+    // check error editor
+    if (editorRef.current.getContent().length < 5) {
+      setError({
+        editor: true,
+      });
+      return;
+    }
+    // check error image cover
+    if(dataUri.length <= 0) {
+      setError({
+        cover: true
+      })
+      return;
+    }
+
     if (posted == false) {
       let categoryNow: string[] = [];
       Object.keys(category).forEach((data, i) => {
@@ -129,15 +155,32 @@ const AddNewPost = () => {
           <div className="">
             <input
               type="text"
-              onChange={(e) => setTitle(e.target.value)}
-              className="toolbar-class mb-2 p-3 focus:outline-purple-500 w-full"
+              name="title"
+              onChange={(e) => {
+                setTitle(e.target.value);
+                setError({
+                  [e.target.name]: false,
+                });
+              }}
+              className={`${
+                error["title"] ? "toolbar-class-error" : "toolbar-class"
+              } mb-2 p-3 focus:outline-purple-500 w-full`}
               placeholder={lang["entertitle"][locale]}
             />
           </div>
-          <div className="toolbar-class cursor-text">
+          <div
+            className={`${
+              error["editor"] ? "toolbar-class-error" : "toolbar-class"
+            } cursor-text`}
+          >
             <Editor
               //@ts-ignore
               apiKey="4v4ybw55eo7sjs4ymqodo9udgrfylqdzkuomq6qsqrfpobxl"
+              onChange={(e:any)=>{
+                setError({
+                  editor: false
+                })
+              }}
               onInit={(evt: any, editor: any) => (editorRef.current = editor)}
               init={{
                 // height: 500,
@@ -182,9 +225,9 @@ const AddNewPost = () => {
             ) : (
               <label
                 htmlFor="coverImage"
-                className="bg-gray-200 p-3 flex h-32 w-full rounded-md border-2 border-gray-500 border-dashed cursor-pointer"
+                className={`bg-gray-200 p-3 flex h-32 w-full rounded-md border-2 ${error["cover"] ? 'border-red-500 text-red-600': 'border-gray-500 text-gray-700'} border-dashed cursor-pointer`}
               >
-                <div className="m-auto text-gray-700">Cover Image</div>
+                <div className="m-auto ">Cover Image</div>
               </label>
             )}
 
