@@ -212,7 +212,7 @@ const AddNewPost = () => {
         </div>
         <div className="rightDetail w-full">
           <div className="toolbar-class p-3 mb-3">
-            <p className="mb-2">Publish</p>
+            <p className="mb-2">{lang["publish"][locale]}</p>
             {dataUri.length > 0 ? (
               <label
                 htmlFor="coverImage"
@@ -229,7 +229,7 @@ const AddNewPost = () => {
                     : "border-gray-500 text-gray-700"
                 } border-dashed cursor-pointer`}
               >
-                <div className="m-auto ">Cover Image</div>
+                <div className="m-auto ">{lang["coverImage"][locale]}</div>
               </label>
             )}
 
@@ -242,12 +242,12 @@ const AddNewPost = () => {
             />
             <div className="mt-2 flex justify-end">
               <div className="cursor-pointer" onClick={post}>
-                <Button end={posted}>Publish</Button>
+                <Button end={posted}>{lang["publish"][locale]}</Button>
               </div>
             </div>
           </div>
           <div className="toolbar-class p-3 mb-3">
-            <p className="mb-2">Categories</p>
+            <p className="mb-2">{lang["categories"][locale]}</p>
             <div className="flex">
               <div
                 onClick={() => setCategoryChange(0)}
@@ -255,7 +255,7 @@ const AddNewPost = () => {
                   categoryChange == 0 ? "bg-purple-500 text-white" : ""
                 }`}
               >
-                All Categories
+                {lang["allcategories"][locale]}
               </div>
               <div
                 onClick={() => setCategoryChange(1)}
@@ -263,7 +263,7 @@ const AddNewPost = () => {
                   categoryChange == 1 ? "bg-purple-500 text-white" : ""
                 }`}
               >
-                Most Used
+                {lang["mostused"][locale]}
               </div>
             </div>
             <div className="border p-2">
