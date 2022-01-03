@@ -196,6 +196,8 @@ const AddNewPost = () => {
                   "alignright alignjustify | bullist numlist outdent indent | " +
                   "removeformat ",
                 // fontsizeselect: "14pt",
+                extended_valid_elements:
+                  "img[!src|alt],a[!href|target|width|height|title|rel=nofollow]",
                 mobile: {
                   plugins:
                     "print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker textpattern noneditable help formatpainter pageembed charmap mentions quickbars linkchecker emoticons advtable",

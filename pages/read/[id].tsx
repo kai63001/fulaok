@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 
 const Read = (props: any) => {
   const { locale = "en" } = useRouter();
-  console.log(date(props.data.date, locale));
+  
   return (
     <Layout>
       <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
