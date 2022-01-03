@@ -8,16 +8,22 @@ import {
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Layout from "@/components/Layout";
+import { date } from "@/lib/dayjs";
+import { useRouter } from "next/router";
 
 const Read = (props: any) => {
-
-  // console.log(props.data);
+  const { locale = "en" } = useRouter();
+  console.log(date(props.data.date, locale));
   return (
     <Layout>
       <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
         <div className="overflow-hidden col-span-2">
-          <h1 className="text-4xl font-medium mb-4">{props.data.title}</h1>
-          <div className="no-tailwindcss-base" dangerouslySetInnerHTML={{ __html: props.data.detail }} />
+          <h1 className="text-4xl font-medium mb-1">{props.data.title}</h1>
+          <p className="text-gray-600">{date(props.data.date, locale)}</p>
+          <div
+            className="no-tailwindcss-base"
+            dangerouslySetInnerHTML={{ __html: props.data.detail }}
+          />
         </div>
       </div>
     </Layout>
