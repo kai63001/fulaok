@@ -10,10 +10,18 @@ import { db } from "@/lib/firebase";
 import Layout from "@/components/Layout";
 import { date } from "@/lib/dayjs";
 import { useRouter } from "next/router";
+import Image from "next/link";
 
 const Read = (props: any) => {
   const { locale = "en" } = useRouter();
-
+  const detailOutOptimize = (html: string): string => {
+    return html.replace(
+      /<img.*?src="(.*?)"[^\>]+>/g,
+      '<img class="bg-purple-600" width="100%" src="/_next/image?url=' +
+        "$1" +
+        '&w=1200&q=75" loading="lazy" />'
+    );
+  };
   return (
     <Layout>
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
@@ -22,7 +30,9 @@ const Read = (props: any) => {
           <p className="text-gray-600">{date(props.data.date, locale)}</p>
           <div
             className="no-tailwindcss-base"
-            dangerouslySetInnerHTML={{ __html: props.data.detail }}
+            dangerouslySetInnerHTML={{
+              __html: detailOutOptimize(props.data.detail),
+            }}
           />
         </div>
       </div>
