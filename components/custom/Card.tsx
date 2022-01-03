@@ -1,6 +1,9 @@
+import { date } from "@/lib/dayjs";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 const Card = (props: any) => {
+  const {locale = "en"} = useRouter()
   return (
     <Link href={`/read/${props.id}`}>
       <a className="bg-gray-300 rounded-md p-113 cursor-pointer active:translate-y-1 transition duration-200 hover:opacity-70">
@@ -19,6 +22,7 @@ const Card = (props: any) => {
           />
           <div className="p-3">
             <p className="text-lg">{props.children}</p>
+            <p className="text-sm text-gray-600">{date(props.date,locale)}</p>
           </div>
         </div>
       </a>

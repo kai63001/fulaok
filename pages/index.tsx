@@ -10,7 +10,7 @@ const Home: NextPage = (props: any) => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
         {props.data.map((data: any, i: any) => {
           return (
-            <Card key={i} id={data.id} image={data.image}>
+            <Card key={i} id={data.id} date={data.date} image={data.image}>
               {data.title}
             </Card>
           );
